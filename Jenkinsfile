@@ -1,36 +1,22 @@
-pipeline{
-    agent {
-        label "node"
-    }
-    stages{
-        stage("Restore dependencies"){
-            when{
-                anyOf{
-                    branch "main"
-                }
-            }
-            steps{
-                bat "dotnet restore"
+pipeline {
+    agent any
+
+    stages {
+        stage('Restore dependencies') {
+            steps {
+                bat 'dotnet restore Homies.sln'
             }
         }
-        stage("Build the project"){
-            when{
-                anyOf{
-                    branch "main"
-                }
-            }
-            steps{
-                bat "dotnet build --no-restore"
+
+        stage('Build the project') {
+            steps {
+                bat 'dotnet build Homies.sln --no-restore'
             }
         }
-        stage("Run tests"){
-            when{
-                anyOf{
-                    branch "main"
-                }
-            }
-            steps{
-                bat "dotnet test --no-build --verbosity normal"
+
+        stage('Run tests') {
+            steps {
+                bat 'dotnet test Homies.sln --no-build --verbosity normal'
             }
         }
     }
