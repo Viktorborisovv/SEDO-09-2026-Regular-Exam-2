@@ -1,3 +1,4 @@
+// Jenkins automatic build trigger verification
 pipeline {
     agent any
 
